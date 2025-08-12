@@ -23,32 +23,8 @@ Before using this module, ensure you have:
 - **VPC** with private subnets in at least 2 availability zones
 - **SSM Parameter Store** parameters for database credentials
 
-## 🏗️ Architecture
 
-This module creates the following AWS resources:
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    AWS VPC                                  │
-├─────────────────────────────────────────────────────────────┤
-│  ┌─────────────────┐    ┌─────────────────┐               │
-│  │ Private Subnet  │    │ Private Subnet  │               │
-│  │     AZ-1        │    │     AZ-2        │               │
-│  └─────────────────┘    └─────────────────┘               │
-│           │                       │                        │
-│           └───────────────────────┼────────────────────────┘
-│                                   │                        │
-│  ┌─────────────────────────────────────────────────────────┐│
-│  │              Aurora PostgreSQL Cluster                  ││
-│  │  ┌─────────────────┐    ┌─────────────────┐            ││
-│  │  │   Writer Node   │    │   Reader Node   │            ││
-│  │  │   (Primary)     │    │   (Secondary)   │            ││
-│  │  └─────────────────┘    └─────────────────┘            ││
-│  └─────────────────────────────────────────────────────────┘│
-└─────────────────────────────────────────────────────────────┘
-```
-
-## 🛠️ Installation & Setup
+##  Installation & Setup
 
 ### 1. Clone the Repository
 
@@ -127,7 +103,7 @@ terraform {
 }
 ```
 
-## 🚀 Usage
+##  Usage
 
 ### Basic Deployment
 

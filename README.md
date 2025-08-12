@@ -1,7 +1,6 @@
 # AWS Aurora PostgreSQL Database Terraform Module
 
-A production-ready Terraform module for deploying AWS Aurora PostgreSQL databases with enterprise-grade configurations. This module is designed for the UMB (University of Maryland, Baltimore) organization and follows infrastructure-as-code best practices.
-
+A production-ready Terraform module for deploying AWS Aurora PostgreSQL databases with enterprise-grade configurations. 
 ## 🚀 Features
 
 - **Multi-AZ Aurora PostgreSQL** deployment across availability zones

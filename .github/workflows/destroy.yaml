@@ -1,0 +1,43 @@
+name: "RDS Destroy"
+
+on:
+  workflow_dispatch:
+
+permissions:
+  id-token: write # This is required for aws oidc connection
+  contents: read # This is required for actions/checkout
+  pull-requests: write # This is required for gh bot to comment PR
+
+jobs:
+  create-backup-plan:
+    name: Terraform Destroy
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+      pull-requests: write
+    env:
+      awsRegion : us-east-2
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@master
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: arn:aws:iam::738630774846:role/cloud-paas-oidc-githubactions
+          role-duration-seconds: 900
+          aws-region: ${{ env.awsRegion }}
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_wrapper: false
+
+      - name: Terraform Init
+        run: terraform init
+        working-directory: ./AWSRDS
+
+      - name: Terraform Destroy
+        run: terraform destroy -auto-approve -var-file="env.tfvars"
+        working-directory: ./AWSRDS

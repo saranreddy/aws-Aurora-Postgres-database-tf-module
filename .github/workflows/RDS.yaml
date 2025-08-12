@@ -1,0 +1,67 @@
+name: "RDS Postgres Creation"
+
+on:
+  workflow_dispatch:
+
+permissions:
+  id-token: write # This is required for aws oidc connection
+  contents: read # This is required for actions/checkout
+  pull-requests: write # This is required for gh bot to comment PR
+
+jobs:
+  create-backup-plan:
+    name: AWS RDS Postgres Database
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+      pull-requests: write
+    env:
+      awsRegion : us-east-2
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@master
+
+      # Configure the credentials for AWS environment
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: arn:aws:iam::897982268029:role/cat-infra-oidc-githubactions
+          role-duration-seconds: 900
+          aws-region: us-east-2
+
+      # Install and setup the latest version of Terraform CLI
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_wrapper: false
+
+      # Display the latest version of Terraform CLI
+      - name: Terraform version
+        id: terraform_version
+        run: terraform --version
+        working-directory: ./AWSRDS
+
+      # Format the terraform files
+      - name: Terraform Format
+        id: terraform_format
+        run: terraform fmt
+        working-directory: ./AWSRDS
+
+      # Initialize working directory containing Terraform configuration files
+      - name: Terraform Init
+        id: terraform_init
+        run: terraform init
+        working-directory: ./AWSRDS
+
+      # Validate the terraform configuration for syntax
+      - name: Terraform Validate
+        id: terraform_validate
+        run: terraform validate -json
+        working-directory: ./AWSRDS
+
+      # Create an execution plan for deployment
+      - name: Terraform Plan
+        id: terraform_plan
+        run: terraform plan -var-file="env.tfvars"
+        working-directory: ./AWSRDS

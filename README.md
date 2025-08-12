@@ -210,51 +210,6 @@ terraform destroy -var-file="env.tfvars"
 # Go to Actions → "RDS Destroy" → Run workflow
 ```
 
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📝 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 🆘 Troubleshooting
-
-### Common Issues
-
-**"VPC not found" error**
-- Ensure the VPC ID exists and is in the correct region
-- Verify your AWS credentials have VPC access permissions
-
-**"Subnet not found" error**
-- Check that subnet IDs are correct and exist in the specified VPC
-- Ensure subnets are in different availability zones
-
-**"SSM parameter not found" error**
-- Create the required SSM parameters in Parameter Store
-- Verify parameter names match those in your `.tfvars` file
-
-**"S3 backend error"**
-- Ensure the S3 bucket exists and is accessible
-- Verify DynamoDB table exists for state locking
-
-### Getting Help
-
-- Check the [Issues](../../issues) page for known problems
-- Review the [GitHub Actions](../../actions) for deployment logs
-- Contact the infrastructure team for support
-
-## 📚 Additional Resources
-
-- [AWS Aurora PostgreSQL Documentation](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraPostgreSQL.html)
-- [Terraform AWS Provider Documentation](https://registry.terraform.io/providers/hashicorp/aws/latest/docs)
-- [UMB Infrastructure Guidelines](https://umb.edu/infrastructure)
-
 ---
 
-**Note**: This module is specifically designed for UMB infrastructure requirements. For production use, ensure all security and compliance requirements are met for your organization.
 

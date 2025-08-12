@@ -282,3 +282,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ---
 
 **Note**: This module is specifically designed for UMB infrastructure requirements. For production use, ensure all security and compliance requirements are met for your organization.
+

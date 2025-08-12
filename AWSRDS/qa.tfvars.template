@@ -1,0 +1,14 @@
+# QA Environment Template - Copy this file and rename to qa.tfvars
+# Fill in your actual values before using
+
+account_name = "your-qa-account"
+project_name = "your-qa-project"
+environment = "qa"
+global_prefix = "your-qa-global-prefix"
+postgres_identifier = "your-qa-postgres-identifier"
+aws_region = "us-east-2"
+instance_class = "db.t3.medium"
+engine_version = "16.6"
+vpc_id = "your-qa-vpc-id"
+vpc_cidr_block = "your-qa-vpc-cidr"
+private_subnet_ids = ["your-qa-subnet-1", "your-qa-subnet-2"]

@@ -1,0 +1,14 @@
+# Development Environment Template - Copy this file and rename to dev.tfvars
+# Fill in your actual values before using
+
+account_name = "your-dev-account"
+project_name = "your-dev-project"
+environment = "dev"
+global_prefix = "your-dev-global-prefix"
+postgres_identifier = "your-dev-postgres-identifier"
+aws_region = "us-east-2"
+instance_class = "db.t3.medium"
+engine_version = "16.6"
+vpc_id = "your-dev-vpc-id"
+vpc_cidr_block = "your-dev-vpc-cidr"
+private_subnet_ids = ["your-dev-subnet-1", "your-dev-subnet-2"]

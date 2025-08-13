@@ -29,50 +29,50 @@ resource "aws_security_group" "aurora" {
 }
 
 resource "aws_rds_cluster" "rds" {
-  cluster_identifier = "${var.postgres_identifier}-rds-cluster"
-  engine             = "aurora-postgresql"
-  engine_version     = var.engine_version
-  availability_zones = split(",", var.availability_zones)
+  cluster_identifier      = "${var.postgres_identifier}-rds-cluster"
+  engine                  = "aurora-postgresql"
+  engine_version          = var.engine_version
+  availability_zones      = split(",", var.availability_zones)
   backup_retention_period = 14
   preferred_backup_window = "04:00-05:00"
-  master_username = data.aws_ssm_parameter.postgres_username.value
-  master_password = data.aws_ssm_parameter.postgres_password.value
-  skip_final_snapshot = true
+  master_username         = data.aws_ssm_parameter.postgres_username.value
+  master_password         = data.aws_ssm_parameter.postgres_password.value
+  skip_final_snapshot     = true
   #apply_immediately = true
-  deletion_protection = false
-  storage_encrypted = true
+  deletion_protection  = false
+  storage_encrypted    = true
   db_subnet_group_name = aws_db_subnet_group.db_subnet_group.name
   #db_cluster_parameter_group_name = aws_db_parameter_group.rds_parameter_group.id
   db_cluster_parameter_group_name = aws_rds_cluster_parameter_group.aurora_rds_cluster_parameter_group.name
-  final_snapshot_identifier = "${var.postgres_identifier}-aurora-rds-cluster-backup"
-  vpc_security_group_ids = [aws_security_group.aurora.id]
-  allow_major_version_upgrade = true
-  port = 8432
+  final_snapshot_identifier       = "${var.postgres_identifier}-aurora-rds-cluster-backup"
+  vpc_security_group_ids          = [aws_security_group.aurora.id]
+  allow_major_version_upgrade     = true
+  port                            = 8432
   enabled_cloudwatch_logs_exports = ["postgresql"]
   lifecycle {
     ignore_changes = [engine_version]
   }
   tags = {
-    Backup = "EC2_Daily"
+    Backup       = "EC2_Daily"
     map-migrated = "d-server-03kz1vtdt7af5p"
   }
 }
 
 resource "aws_rds_cluster_instance" "rds-instance" {
-  identifier          = "${var.postgres_identifier}-aurora-rds-instance-${count.index}"
-  cluster_identifier  = aws_rds_cluster.rds.cluster_identifier
-  engine              = "aurora-postgresql"
-  engine_version      = var.engine_version
-  instance_class      = var.instance_class
+  identifier         = "${var.postgres_identifier}-aurora-rds-instance-${count.index}"
+  cluster_identifier = aws_rds_cluster.rds.cluster_identifier
+  engine             = "aurora-postgresql"
+  engine_version     = var.engine_version
+  instance_class     = var.instance_class
   #publicly_accessible = true
   db_subnet_group_name = aws_db_subnet_group.db_subnet_group.id
-  count               = length(split(",", var.availability_zones))
-  apply_immediately   = true
+  count                = length(split(",", var.availability_zones))
+  apply_immediately    = true
   #db_cluster_parameter_group_name = aws_rds_cluster_parameter_group.aurora_rds_cluster_parameter_group.id
   #db_parameter_group_name = aws_db_parameter_group.aurora_rds_cluster_parameter_group.id
-  depends_on          = [aws_rds_cluster.rds] # Ensure instances are created after the cluster
+  depends_on = [aws_rds_cluster.rds] # Ensure instances are created after the cluster
   tags = {
-    Backup        = "EC2_Daily"
+    Backup       = "EC2_Daily"
     map-migrated = "d-server-03kzlvtdt7af5p"
   }
 }

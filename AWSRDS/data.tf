@@ -51,11 +51,11 @@ locals {
 
 #Capture DB UserName and Password From SSM
 data "aws_ssm_parameter" "postgres_username" {
-  name             = var.ssm_postgres_username
+  name            = var.ssm_postgres_username
   with_decryption = true
 }
 
 data "aws_ssm_parameter" "postgres_password" {
-  name             = var.ssm_postgres_password
+  name            = var.ssm_postgres_password
   with_decryption = true
 }

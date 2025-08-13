@@ -5,7 +5,7 @@ terraform {
     bucket         = "dj-common-terraform-state-umb"
     dynamodb_table = "terraform-aws-rds-state-lock"
     # Replace this with the AWS region where your S3 bucket is located.
-    region         = "us-east-2"
-    encrypt        = true
+    region  = "us-east-2"
+    encrypt = true
   }
 }

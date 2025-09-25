@@ -13,6 +13,12 @@ provider "aws" {
   region = var.aws_region
 }
 
+# Provider for backup region (us-west-2)
+provider "aws" {
+  alias  = "us-west-2"
+  region = "us-west-2"
+}
+
 # Declares the "archive" provider without any specific configuration.
 provider "archive" {
 }

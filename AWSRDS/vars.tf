@@ -73,3 +73,15 @@ variable "engine_version" {
   description = "RDS engine version"
   type        = string
 }
+
+variable "backup_retention_days" {
+  description = "Number of days to retain backups"
+  type        = number
+  default     = 14
+}
+
+variable "backup_schedule" {
+  description = "Backup schedule in cron format"
+  type        = string
+  default     = "cron(0 * * * ? *)"  # Hourly
+}
